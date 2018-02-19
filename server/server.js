@@ -25,3 +25,12 @@ app.post('/images', imagesUpload(
     HTTP_SERVER_PORT_IMAGES
 ));
 
+
+app.get('/api/cities/getCities', (req, res) => {
+    db.collection('cities').find().toArray()
+        .then(cities => res.json(cities))
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({message: `Internal Server Error : ${error}`});
+        });
+});
