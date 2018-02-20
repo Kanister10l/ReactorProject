@@ -46,9 +46,9 @@ app.post('/api/cities/addCity', function (req, res) {
     });
 });
 
-app.post('/api/cities/removeCity', (req, res) => {
+app.get('/api/cities/removeCity', (req, res) => {
     let error = false;
-    db.collection('cities').findOne({_id: ObjectID(req.body.id)})
+    db.collection('cities').findOne({_id: ObjectID(req.query.id)})
         .then(city  => {
             city.activities.forEach((item, index) => {
                 db.collection('activities').removeOne({_id: ObjectID(item._id)}, {safe: true}, (err, result) =>{
@@ -65,7 +65,7 @@ app.post('/api/cities/removeCity', (req, res) => {
                 });
             })
         });
-    db.collection('cities').removeOne({_id: ObjectID(req.body.id)}, {safe: true}, (err, result) =>{
+    db.collection('cities').removeOne({_id: ObjectID(req.query.id)}, {safe: true}, (err, result) =>{
         if (err)
             error = true;
     });
@@ -75,8 +75,8 @@ app.post('/api/cities/removeCity', (req, res) => {
         res.send("Success");
 });
 
-app.post('/api/cities/getCity', (req, res) => {
-    db.collection('cities').findOne({_id: ObjectID(req.body.id)})
+app.get('/api/cities/getCity', (req, res) => {
+    db.collection('cities').findOne({_id: ObjectID(req.query.id)})
         .then(city => res.json(city))
         .catch(error => {
             console.log(error);
@@ -160,8 +160,8 @@ app.get('/api/activities/getAllMonuments', (req, res) => {
         });
 });
 
-app.post('/api/activities/getActivity', (req, res) => {
-    db.collection('activities').findOne({_id: req.body.id})
+app.get('/api/activities/getActivity', (req, res) => {
+    db.collection('activities').findOne({_id: req.query.id})
         .then(act => res.json(act))
         .catch(error => {
             console.log(error);
