@@ -26,7 +26,7 @@ app.post('/images', imagesUpload(
 ));
 
 
-app.get('/api/cities/getCities', (req, res) => {
+app.get('/api/cities/getAllCities', (req, res) => {
     db.collection('cities').find().toArray()
         .then(cities => res.json(cities))
         .catch(error => {
@@ -34,3 +34,35 @@ app.get('/api/cities/getCities', (req, res) => {
             res.status(500).json({message: `Internal Server Error : ${error}`});
         });
 });
+
+app.post('/api/cities/addCity', );
+
+app.post('/api/cities/removeCity', );
+
+app.post('/api/cities/getCity', );                  //Get specific city
+
+app.get('/api/activities/getAllActivities', );
+
+app.get('/api/activities/getAllEvents', );
+
+app.get('/api/activities/getAllPlaces', );
+
+app.get('/api/activities/getAllMonuments', );
+
+app.post('/api/activities/getActivity', );           //Get specific activity
+
+app.get('/api/comments/getComments', );
+
+app.post('/api/comments/addComment', );
+
+app.post('/api/comments/removeComment', );
+
+app.post('/api/likes/addLike', );
+
+app.post('/api/likes/removeLike', );
+
+app.post('/api/user/validate', );
+
+app.post('/api/user/register', );
+
+app.post('/api/user/addAdminPermission', );
