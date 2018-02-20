@@ -101,7 +101,7 @@ app.post('/api/activities/addActivity', function (req, res) {
 });
 
 app.post('/api/activities/removeActivity', (req, res) => {
-    let error false;
+    let error = false;
     db.collection('activities').removeOne({_id: ObjectID(req.body.id)}, {safe: true}, (err, result) =>{
         if (err)
             error = true;
@@ -179,7 +179,7 @@ app.get('/api/comments/getComments', (req, res) => {
 });
 
 app.post('/api/comments/addComment', (req, res) => {
-    let error false;
+    let error = false;
     db.collection('comments').insertOne(req.body, (err, result) => {
         if (err)
             error = true;
@@ -195,8 +195,8 @@ app.post('/api/comments/addComment', (req, res) => {
 });
 
 app.post('/api/comments/removeComment', (req, res) => {
-    let error false;
-    bd.collection('comments').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
+    let error = false;
+    db.collection('comments').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
         if (err)
             error = true;
     });
@@ -211,8 +211,8 @@ app.post('/api/comments/removeComment', (req, res) => {
 });
 
 app.post('/api/likes/addLike', (req, res) => {
-    let error false;
-    bd.collection('likes').insertOne(req.body, (err, result) => {
+    let error = false;
+    db.collection('likes').insertOne(req.body, (err, result) => {
         if (err)
             error = true;
     });
@@ -227,8 +227,8 @@ app.post('/api/likes/addLike', (req, res) => {
 });
 
 app.post('/api/likes/removeLike', (req, res) => {
-    let error false;
-    bd.collection('likes').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
+    let error = false;
+    db.collection('likes').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
         if (err)
             error = true;
     });
