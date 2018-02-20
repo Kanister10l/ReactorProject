@@ -47,12 +47,32 @@ app.post('/api/cities/addCity', function (req, res) {
 });
 
 app.post('/api/cities/removeCity', (req, res) => {
+    let error = false;
+    db.collection('cities').findOne({_id: ObjectID(req.body.id)})
+        .then(city  => {
+            city.activities.forEach((item, index) => {
+                db.collection('activities').removeOne({_id: ObjectID(item._id)}, {safe: true}, (err, result) =>{
+                    if (err)
+                        error = true;
+                });
+                db.collection('comments').removeMany({activityId: item._id}, (err, result) => {
+                    if (err)
+                        error = true;
+                });
+                db.collection('likes').removeMany({activityId: item._id}, (err, result) => {
+                    if (err)
+                        error = true;
+                });
+            })
+        });
     db.collection('cities').removeOne({_id: ObjectID(req.body.id)}, {safe: true}, (err, result) =>{
-        if(err)
-            res.send("Error");
-        else
-            res.send("Success");
+        if (err)
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/cities/getCity', (req, res) => {
@@ -65,45 +85,43 @@ app.post('/api/cities/getCity', (req, res) => {
 });                  //Get specific city
 
 app.post('/api/activities/addActivity', function (req, res) {
+    let error = false;
     db.collection('activities').insertOne(req.body, (err, result) => {
-        if(err)
-            res.send("Error");
-        else
-            res.send("Success");
-    });
-    db.collection('cities').updateOne({id: ObjectID(req.body.cityId)}, {$push: {activities: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    db.collection('cities').updateOne({_id: ObjectID(req.body.cityId)}, {$push: {activities: req.body}}, (err, result) => {
+        if (err)
+            error = true;
+    });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/activities/removeActivity', (req, res) => {
+    let error false;
     db.collection('activities').removeOne({_id: ObjectID(req.body.id)}, {safe: true}, (err, result) =>{
-        if(err)
-            res.send("Error");
-        else
-            res.send("Success");
-    });
-    db.collection('cities').updateOne({id: ObjectID(req.body.cityId)}, {$pull: {comments: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
+    });
+    db.collection('cities').updateOne({id: ObjectID(req.body.cityId)}, {$each, $pull: {activities: req.body}}, (err, result) => {
+        if (err)
+            error = true;
     });
     db.collection('comments').removeMany({activityId: req.body.id}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
     db.collection('likes').removeMany({activityId: req.body.id}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.get('/api/activities/getAllActivities', (req, res) => {
@@ -161,63 +179,67 @@ app.get('/api/comments/getComments', (req, res) => {
 });
 
 app.post('/api/comments/addComment', (req, res) => {
+    let error false;
     db.collection('comments').insertOne(req.body, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
     db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$push: {comments: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/comments/removeComment', (req, res) => {
+    let error false;
     bd.collection('comments').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
     db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {comments: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/likes/addLike', (req, res) => {
+    let error false;
     bd.collection('likes').insertOne(req.body, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
     db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$push: {likes: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/likes/removeLike', (req, res) => {
+    let error false;
     bd.collection('likes').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
     db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {likes: req.body}}, (err, result) => {
         if (err)
-            res.send("Error");
-        else
-            res.send("Success");
+            error = true;
     });
+    if (error)
+        res.send("Error");
+    else
+        res.send("Success");
 });
 
 app.post('/api/user/validate', (req, res) => {
