@@ -20,8 +20,8 @@ ReactDOM.render(
                     <li><a href="#cities">Cities</a></li>
                     <li><a href="#section_monuments">Monuments</a></li>
                     <li><a href="#section_events">Events</a></li>
-                    <li><a href="/"><i className="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Julien
-                        Fovelle</a></li>
+                    <li><a href="/"><i className="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Login</a></li>
+                    <li><a href="/"><i className="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Register</a></li>
                 </ul>
             </nav>
 
