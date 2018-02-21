@@ -40,9 +40,9 @@ app.get('/api/cities/getAllCities', (req, res) => {
 app.post('/api/cities/addCity', function (req, res) {
     db.collection('cities').insertOne(req.body, (err, result) => {
         if(err)
-            res.send("Error");
+            res.status(500).json({message: "error"});
         else
-            res.send("Success");
+            res.status(200).json({message: "success"});
     });
 });
 
