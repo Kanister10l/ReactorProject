@@ -100,6 +100,15 @@ app.post('/api/activities/addActivity', function (req, res) {
         res.send("Success");
 });
 
+app.post('/api/activities/updateActivity', (req, res) => {
+    db.collection('activities').updateOne({_id: req.query.id}, {$set: req.body}, (err, result) => {
+        if (err)
+            res.send("Error");
+        else
+            res.send("Success");
+    });
+});
+
 app.post('/api/activities/removeActivity', (req, res) => {
     let error = false;
     db.collection('activities').findOne({_id: ObjectID(req.body.id)})
@@ -302,34 +311,10 @@ app.post('/api/user/register', (req, res) => {
 });
 
 app.post('/api/user/addAdminPermission', (req, res) => {
-
-});
-
-app.get('/cities/:id', (req, res) => {
-    console.log("REQ ", req.params.id);
-    db.collection('cities').findOne({"_id": ObjectID(req.params.id)})
-        .then(city => res.json(city))
-        .catch(error => {
-            console.log(error);
-            res.status(404).json({message: `No such city with id : ${req.params.id}`});
-        });
-});
-
-app.post('/newCity', (req, res) => {
-    const c = {
-        name: req.body.cityName,
-        picture : '/images/Aix/aix.jpg',
-        coordinates: {
-            lat: req.body.cityLatitude,
-            long: req.body.cityLongitude
-        },
-        description: "",
-        activities: []
-    };
-    db.collection('cities').insertOne(c)
-        .then(result => res.json(result.insertedId))
-        .catch(error => {
-            console.log(error);
-            res.status(500).json({message: `Internal Server Error: ${error}`});
-        });
+    db.collection('user').updateOne({username: req.body.username}, {$set: {admin: true}}, (err, result) => {
+        if (err)
+            res.send("Error");
+        else
+            res.send("Success");
+    });
 });
