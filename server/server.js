@@ -75,12 +75,13 @@ app.get('/api/cities/removeCity', (req, res) => {
         res.send("Success");
 });
 
-app.get('/api/cities/getCity', (req, res) => {
-    db.collection('cities').findOne({_id: ObjectID(req.query.id)})
+app.get('/api/cities/getCity/:id', (req, res) => {
+    console.log(req);
+    db.collection('cities').findOne({"_id": ObjectID(req.params.id)})
         .then(city => res.json(city))
         .catch(error => {
             console.log(error);
-            res.status(500).json({message: `Internal Server Error : ${error}`});
+            res.status(404).json({message: `No such city with id : ${req.params.id}`});
         });
 });                  //Get specific city
 
@@ -252,4 +253,33 @@ app.post('/api/user/register', (req, res) => {
 
 app.post('/api/user/addAdminPermission', (req, res) => {
 
+});
+
+app.get('/cities/:id', (req, res) => {
+    console.log("REQ ", req.params.id);
+    db.collection('cities').findOne({"_id": ObjectID(req.params.id)})
+        .then(city => res.json(city))
+        .catch(error => {
+            console.log(error);
+            res.status(404).json({message: `No such city with id : ${req.params.id}`});
+        });
+});
+
+app.post('/newCity', (req, res) => {
+    const c = {
+        name: req.body.cityName,
+        picture : '/images/Aix/aix.jpg',
+        coordinates: {
+            lat: req.body.cityLatitude,
+            long: req.body.cityLongitude
+        },
+        description: "",
+        activities: []
+    };
+    db.collection('cities').insertOne(c)
+        .then(result => res.json(result.insertedId))
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({message: `Internal Server Error: ${error}`});
+        });
 });
