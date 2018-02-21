@@ -27,7 +27,7 @@ class City extends React.Component{
         return(
         <div className="card">
             <div className="container">
-                <h4><b>{this.props.name}</b></h4>
+                <h4><b>{this.props.city.name}</b></h4>
             </div>
         </div>
         )
@@ -39,7 +39,7 @@ class City extends React.Component{
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {cities: [], name: "", lat: null, long: null, country: ""};
+        this.state = {cities: [], name: "", lat: null, long: null, country: "", picture: ""};
     }
     loadData() {
         fetch('/api/cities/getAllCities')                       // Ask the route /cities to the server
@@ -53,11 +53,12 @@ export default class Home extends React.Component {
         const cityName = this.state.name;
         const cityLatitude = this.state.lat;
         const cityLongitude = this.state.long;
+        const picture = this.state.picture;
         const countryName = this.state.country;
 
         fetch('/api/cities/addCity', {
             method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({cityName, cityLatitude, cityLongitude, countryName})
+            body: JSON.stringify({cityName, cityLatitude, cityLongitude, countryName, picture})
         }).then(res => {
             if (res.ok) {
                 res.json().then(id => console.log("City added with id " + id));
@@ -67,7 +68,7 @@ export default class Home extends React.Component {
                 res.json().then(err => alert("Failed to add city: " + err.message));
         }).catch(err => alert("Error in sending data to server: " + err.message));
 
-        this.setState({name: "", lat: null, long:null});
+        this.setState({name: "", lat: null, long:null, country: "", picture:''});
     }
 
     handleNameChange(e) {
@@ -81,6 +82,11 @@ export default class Home extends React.Component {
     handleLongChange(e) {
         this.setState({long: e.target.value});
     }
+
+    handlePictureChange(e) {
+        this.setState({picture: e.target.value});
+    }
+
     handleCountryChange(e) {
         this.setState({country: e.target.value});
     }
@@ -103,7 +109,7 @@ export default class Home extends React.Component {
                         network. <br/>
                         Enjoy!!
                     </p>
-                    {cities.map(city => <CityLaconic key={city._id} city={city}></CityLaconic>)
+                    {cities.map(city => <CityLaconic city={city}></CityLaconic>)
                     }
 
                     <h2>Insert a new city</h2>
@@ -112,6 +118,7 @@ export default class Home extends React.Component {
                         <input type="number" value={this.state.lat} onChange={(e) => {this.handleLatChange(e)}} placeholder="Latitude" /> <br />
                         <input type="number" value={this.state.long} onChange={(e) => {this.handleLongChange(e)}} placeholder="Longitude" /> <br />
                         <input type="text" value={this.state.country} onChange={(e) => {this.handleCountryChange(e)}} placeholder="Country" /> <br />
+                        <input type="text" value={this.state.picture} onChange={(e) => {this.handlePictureChange(e)}} placeholder="Image URL" /> <br />
 
                         <input type="submit" value="Create" />
                     </form>

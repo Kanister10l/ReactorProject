@@ -32,8 +32,8 @@ export default class City extends React.Component {
     };
 
     loadData() {
-        console.log('/api/cities/getCity/'+this.props.params.id);
-        fetch('/api/cities/getCity/'+this.props.params.id)                       // Ask the route /cities to the server
+        console.log('/api/cities/getCity?id='+this.props.params.id);
+        fetch('/api/cities/getCity?id='+this.props.params.id)                       // Ask the route /cities to the server
             .then(res => res.json())                       // Retrieve the objects  in json
             .then(data => this.setState({city: data}))   // Modify the state accordingly
             .catch(err => console.log(err));               // Bad news: an error!

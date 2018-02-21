@@ -75,9 +75,8 @@ app.get('/api/cities/removeCity', (req, res) => {
         res.send("Success");
 });
 
-app.get('/api/cities/getCity/:id', (req, res) => {
-    console.log(req);
-    db.collection('cities').findOne({"_id": ObjectID(req.params.id)})
+app.get('/api/cities/getCity', (req, res) => {
+    db.collection('cities').findOne({_id: ObjectID(req.query.id)})
         .then(city => res.json(city))
         .catch(error => {
             console.log(error);
