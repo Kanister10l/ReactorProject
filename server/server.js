@@ -69,10 +69,10 @@ app.get('/api/cities/removeCity', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.get('/api/cities/getCity', (req, res) => {
@@ -94,18 +94,18 @@ app.post('/api/activities/addActivity', function (req, res) {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(err)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.post('/api/activities/updateActivity', (req, res) => {
     db.collection('activities').updateOne({_id: req.query.id}, {$set: req.body}, (err, result) => {
-        if (err)
-            res.send("Error");
+        if(err)
+            res.status(500).json({message: "error"});
         else
-            res.send("Success");
+            res.status(200).json({message: "success"});
     });
 });
 
@@ -132,10 +132,10 @@ app.post('/api/activities/removeActivity', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.get('/api/activities/getAllActivities', (req, res) => {
@@ -202,10 +202,10 @@ app.post('/api/comments/addComment', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.post('/api/comments/removeComment', (req, res) => {
@@ -223,10 +223,10 @@ app.post('/api/comments/removeComment', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.post('/api/likes/addLike', (req, res) => {
@@ -239,10 +239,10 @@ app.post('/api/likes/addLike', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.post('/api/likes/removeLike', (req, res) => {
@@ -260,10 +260,10 @@ app.post('/api/likes/removeLike', (req, res) => {
         if (err)
             error = true;
     });
-    if (error)
-        res.send("Error");
+    if(error)
+        res.status(500).json({message: "error"});
     else
-        res.send("Success");
+        res.status(200).json({message: "success"});
 });
 
 app.post('/api/user/validate', (req, res) => {
@@ -274,7 +274,7 @@ app.post('/api/user/validate', (req, res) => {
                 if (item.username === req.body.username && item.password === req.body.password)
                     match = true;
             });
-            res.send(match);
+            res.status(200).json({message: match})
         })
         .catch(error => {
             console.log(error);
@@ -292,16 +292,16 @@ app.post('/api/user/register', (req, res) => {
                     exists = true;
             });
             if (exists)
-                res.send("Exists");
+                res.status(500).json({message: "exists"});
             else {
                 db.collection('user').insertOne(req.body, (err, result) => {
                     if (err)
                         error = true;
                 });
-                if (error)
-                    res.send("Error");
+                if(error)
+                    res.status(500).json({message: "error"});
                 else
-                    res.send("Success");
+                    res.status(200).json({message: "success"});
             }
         })
         .catch(error => {
@@ -312,9 +312,9 @@ app.post('/api/user/register', (req, res) => {
 
 app.post('/api/user/addAdminPermission', (req, res) => {
     db.collection('user').updateOne({username: req.body.username}, {$set: {admin: true}}, (err, result) => {
-        if (err)
-            res.send("Error");
+        if(err)
+            res.status(500).json({message: "error"});
         else
-            res.send("Success");
+            res.status(200).json({message: "success"});
     });
 });

@@ -145,6 +145,18 @@ export default class Home extends React.Component {
                                     <input type="text" value={this.state.country} onChange={(e) => {
                                         this.handleCountryChange(e)
                                     }} placeholder="Country"/> <br/>
+                                    <ImagesUploader
+                                        url={"http://localhost:9090/images"}
+                                        optimisticPreviews={true}
+                                        multiple={false}
+                                        onLoadEnd={(err, result) =>{
+                                            if (err)
+                                                console.error(err);
+                                            else
+                                                this.setState({picture: result})
+                                        }}
+                                        label="Attach image"
+                                    />
 
 
 
