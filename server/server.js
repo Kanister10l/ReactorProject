@@ -103,11 +103,16 @@ app.post('/api/activities/addActivity', function (req, res) {
 
 app.post('/api/activities/removeActivity', (req, res) => {
     let error = false;
+    db.collection('activities').findOne({_id: ObjectID(req.body.id)})
+        .then(act => {
+            db.collection('cities').updateOne({_id: ObjectID(act.cityId)}, {
+                $pull: {activities: act}
+            }, (err, result) => {
+                if (err)
+                    error = true;
+            });
+        });
     db.collection('activities').removeOne({_id: ObjectID(req.body.id)}, {safe: true}, (err, result) =>{
-        if (err)
-            error = true;
-    });
-    db.collection('cities').updateOne({id: ObjectID(req.body.cityId)}, {$each, $pull: {activities: req.body}}, (err, result) => {
         if (err)
             error = true;
     });
@@ -197,11 +202,16 @@ app.post('/api/comments/addComment', (req, res) => {
 
 app.post('/api/comments/removeComment', (req, res) => {
     let error = false;
+    db.collection('comments').findOne({_id: ObjectID(req.body.id)})
+        .then(com => {
+            db.collection('activities').updateOne({_id: ObjectID(com.activityId)}, {
+                $pull: {comments: com}
+            }, (err, result) => {
+                if (err)
+                    error = true;
+            });
+        });
     db.collection('comments').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
-        if (err)
-            error = true;
-    });
-    db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {comments: req.body}}, (err, result) => {
         if (err)
             error = true;
     });
@@ -229,11 +239,16 @@ app.post('/api/likes/addLike', (req, res) => {
 
 app.post('/api/likes/removeLike', (req, res) => {
     let error = false;
+    db.collection('likes').findOne({_id: ObjectID(req.body.id)})
+        .then(like => {
+            db.collection('activities').updateOne({_id: ObjectID(like.activityId)}, {
+                $pull: {likes: like}
+            }, (err, result) => {
+                if (err)
+                    error = true;
+            });
+        });
     db.collection('likes').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
-        if (err)
-            error = true;
-    });
-    db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {likes: req.body}}, (err, result) => {
         if (err)
             error = true;
     });
@@ -244,11 +259,47 @@ app.post('/api/likes/removeLike', (req, res) => {
 });
 
 app.post('/api/user/validate', (req, res) => {
-
+    let match = false;
+    db.collection('user').find().toArray()
+        .then(users => {
+            users.forEach((item, index) => {
+                if (item.username === req.body.username && item.password === req.body.password)
+                    match = true;
+            });
+            res.send(match);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({message: `Internal Server Error : ${error}`});
+        });
 });
 
 app.post('/api/user/register', (req, res) => {
-
+    let exists = false;
+    let error = false;
+    db.collection('user').find().toArray()
+        .then(users => {
+            users.forEach((item, index) => {
+                if (item.username === req.body.username)
+                    exists = true;
+            });
+            if (exists)
+                res.send("Exists");
+            else {
+                db.collection('user').insertOne(req.body, (err, result) => {
+                    if (err)
+                        error = true;
+                });
+                if (error)
+                    res.send("Error");
+                else
+                    res.send("Success");
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({message: `Internal Server Error : ${error}`});
+        });
 });
 
 app.post('/api/user/addAdminPermission', (req, res) => {
