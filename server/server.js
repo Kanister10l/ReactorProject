@@ -201,11 +201,16 @@ app.post('/api/comments/addComment', (req, res) => {
 
 app.post('/api/comments/removeComment', (req, res) => {
     let error = false;
+    db.collection('comments').findOne({_id: ObjectID(req.body.id)})
+        .then(com => {
+            db.collection('activities').updateOne({_id: ObjectID(com.activityId)}, {
+                $pull: {comments: com}
+            }, (err, result) => {
+                if (err)
+                    error = true;
+            });
+        });
     db.collection('comments').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
-        if (err)
-            error = true;
-    });
-    db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {comments: req.body}}, (err, result) => {
         if (err)
             error = true;
     });
@@ -233,11 +238,16 @@ app.post('/api/likes/addLike', (req, res) => {
 
 app.post('/api/likes/removeLike', (req, res) => {
     let error = false;
+    db.collection('likes').findOne({_id: ObjectID(req.body.id)})
+        .then(like => {
+            db.collection('activities').updateOne({_id: ObjectID(like.activityId)}, {
+                $pull: {likes: like}
+            }, (err, result) => {
+                if (err)
+                    error = true;
+            });
+        });
     db.collection('likes').removeOne({_id: ObjectID(req.body.id)}, (err, result) => {
-        if (err)
-            error = true;
-    });
-    db.collection('activities').updateOne({id: ObjectID(req.body.activityId)}, {$pull: {likes: req.body}}, (err, result) => {
         if (err)
             error = true;
     });
