@@ -10,9 +10,15 @@ import {HTTP_SERVER_PORT_IMAGES} from '../server/constants'
 class Activity extends React.Component{
     render(){
         return(
-            <div className='activities'>
-                <img src= {this.props.activity.picture} width="250px" height="250px"/>
-                <p><Link to={`/activity/${this.props.activity._id}`} activeClassName="active">{this.props.activity.name}</Link></p>
+            <div id='events'>
+
+                <h2>{this.props.activity.name}</h2>
+                <p>{this.props.activity.description}</p>
+                <img src= {this.props.activity.picture}/>
+                <h3>Comment</h3>
+                <textarea name="comment_event" rows="1" cols="50" placeholder="Please enter a comment..."></textarea>
+                <Link className="button2" to="#">Send</Link>
+
             </div>
         )
     }
@@ -32,58 +38,14 @@ export default class City extends React.Component {
     };
 
     loadData() {
-        console.log('/api/cities/getCity?id='+this.props.params.id);
+        console.log('/api/cities/getCity/'+this.props.params.id);
         fetch('/api/cities/getCity?id='+this.props.params.id)                       // Ask the route /cities to the server
             .then(res => res.json())                       // Retrieve the objects  in json
             .then(data => this.setState({city: data}))   // Modify the state accordingly
             .catch(err => console.log(err));               // Bad news: an error!
         console.log(this.state.city);
+
     }
-
-    addActivity(e) {
-        e.preventDefault();
-        const activityName = this.state.aName;
-        const actDescription = this.state.disc;
-        const url = this.state.url;
-        const startDate = this.state.sDate;
-        const endDate = this.state.eDate;
-
-        fetch('/api/cities/addCity', {
-            method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({activityName, url ,actDescription, startDate, endDate})
-        }).then(res => {
-            if (res.ok) {
-                res.json().then(id => console.log("City added with id " + id));
-                this.loadData();
-            }
-            else
-                res.json().then(err => alert("Failed to add city: " + err.message));
-        }).catch(err => alert("Error in sending data to server: " + err.message));
-
-        this.setState({aName: "", disc: null, url:null, sDate: "", eDate:''});
-    }
-
-    handleActNameChange(e) {
-        this.setState({aName: e.target.value});
-    }
-
-    handleDiscChange(e) {
-        this.setState({disc: e.target.value});
-    }
-
-    handleUrlChange(e) {
-        this.setState({url: e.target.value});
-    }
-
-    handleSdateChange(e) {
-        this.setState({sDate: e.target.value});
-    }
-
-    handleEdateChange(e) {
-        this.setState({eDate: e.target.value});
-    }
-
-
 
     componentDidMount() {
         this.loadData();
@@ -96,28 +58,65 @@ export default class City extends React.Component {
         if(city == null){
             return ( <div>loading...</div>)
         }else {
-            console.log(this.state.city);
+            const bg_city = {
+                position:'absolute',
+                top: 0,
+                left: 0,
+                height:'100vh',
+                width: '100%',
+                backgroundImage: "url("+this.state.city.picture+")",
+                backgroundSize: 'cover',
+                backgroundPosition: 'top',
+            }
             return (
-                <div className='city'>
-                    <img src={this.state.city.picture}/>
-                    <p>{this.state.city.name}</p>
-                    <p>{this.state.city.description}</p>
-                    <h1> Places </h1>
-                    {this.state.city.activities.filter(a => a.nature=='place').map((a,i) => <Activity activity={a}/> )}
-                    <h1> Events </h1>
-                    {this.state.city.activities.filter(a => a.nature=='event').map((a,i) => <Activity activity={a}/>)}
 
-                    <h2>Insert a new activity</h2>
-                    <form onSubmit={(e) => this.addActivity(e)}>
-                        <input type="text" value={this.state.aName} onChange={(e) => {this.handleActNameChange(e)}} placeholder="New Activity" /> <br />
-                        <textarea name="description" value={this.state.disc} onChange={(e) => {this.handleDiscChange(e)}}>Description</textarea ><br/>
-                        <input type="text" value={this.state.url} onChange={(e) => {this.handleUrlChange(e)}} placeholder="URL" /> <br />
-                        <input type="text" value={this.state.sDate} onChange={(e) => {this.handleSdateChange(e)}} placeholder="Start date" />
-                        <input type="text" value={this.state.eDate} onChange={(e) => {this.handleEdateChange(e)}} placeholder="End Date" />
-                        <br /><br />
-                        <input type="submit" value="Create" />
-                    </form>
+                <div>
+
+
+                    <div style={bg_city}>
+                        <span className="overlay"></span>
+                    </div>
+
+                        <div className="Content_Header">
+                            <div className="discover">
+                                <span className="trait" id="traitG"></span>
+                                <span>DISCOVER</span>
+                                <span className="trait" id="traitD"></span>
+                            </div>
+                            <div className="header_txt">
+                                <span className="hightitle_header"> {this.state.city.name} </span>
+                                <span className="subtitle_header"> {this.state.city.country} </span>
+                            </div>
+                        </div>
+                        <div id='section1'>
+                            <div className="entete">
+                                <h1>DESCRIPTION OF {this.state.city.name}</h1>
+                                <img src="images/Guill.png" alt=""/>
+                                <p>{this.state.city.description}</p>
+                                <img src="images/GuillV.png" alt=""/>
+                            </div>
+
+
+                            <div id="events">
+                                <span className="cube"></span>
+                                <span className="cube"></span>
+                                <span className="cube"></span>
+                                <h1>EVENTS OF {this.state.city.name}</h1>
+                                {this.state.city.activities.filter(a => a.nature=='event').map((a,i) => <Activity activity={a}/> )}
+                                <span className="cube"></span>
+                                <span className="cube"></span>
+                                <span className="cube"></span>
+                                <h1>PLACES OF {this.state.city.name}</h1>
+                                {this.state.city.activities.filter(a => a.nature=='place').map((a,i) => <Activity activity={a}/>)}
+                            </div>
+
+                        </div>
+
+
                 </div>
+
+
+
 
             )
         }
