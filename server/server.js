@@ -94,7 +94,7 @@ app.post('/api/activities/addActivity', function (req, res) {
         if (err)
             error = true;
     });
-    if(err)
+    if(error)
         res.status(500).json({message: "error"});
     else
         res.status(200).json({message: "success"});
