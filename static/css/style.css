@@ -1040,3 +1040,52 @@ footer {
 .upslide2 {
     display: block;
 }
+
+.error404 {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../images/bg404.jpg);
+    background-size: cover;
+    text-align: center;
+
+}
+
+.align404 {
+    padding-top: 150px;
+    display: block;
+
+}
+
+.main_title {
+    display: block;
+    text-align: center;
+    font-family: 'Raleway';
+    font-weight: 800;
+    font-size: 4.3em;
+    color: #FFF;
+}
+
+.second_title {
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 1.5em;
+    color: #FFF;
+}
+
+.error {
+    margin-top: 55px;
+    display: block;
+    text-align: center;
+    font-family: 'Raleway';
+    font-weight: 900;
+    font-size: 5em;
+    color: #FFF;
+}
+
+.plane {
+    position: block;
+    bottom: 0;
+}
