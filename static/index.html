@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <title>Visiting Cities</title>
     <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/style_pop.css">
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
 
     <!-- Frameworks -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -23,10 +23,48 @@
 <body>
 <div id="root"></div>
 <script src="bundle.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
 <script src="js/menu.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/scroll.js"></script>
+<script type="text/javascript">
+
+    $("#modal_trigger").leanModal({
+        top: 200,
+        overlay: 0.6,
+        closeButton: ".modal_close"
+    });
+
+    $(function() {
+        // Calling Login Form
+        $("#login_form").click(function() {
+            $(".social_login").hide();
+            $(".user_login").show();
+            return false;
+        });
+
+        // Calling Register Form
+        $("#register_form").click(function() {
+            $(".social_login").hide();
+            $(".user_register").show();
+            $(".header_title").text('Register');
+            return false;
+        });
+
+        // Going back to Social Forms
+        $(".back_btn").click(function() {
+            $(".user_login").hide();
+            $(".user_register").hide();
+            $(".social_login").show();
+            $(".header_title").text('Login');
+            return false;
+        });
+
+    })
+</script>
+
 </body>
 
 </html>
