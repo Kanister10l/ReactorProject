@@ -13,8 +13,11 @@ class CityLaconic extends React.Component {
         return (
             <div>
                 <div>
-                    <span><Link to={'/city/' + this.props.city._id}>{this.props.city.name}</Link></span>
                     <img src={this.props.city.picture} alt=""/>
+                    <Link to={'/city/' + this.props.city._id}>
+                        <span className="over_img">{this.props.city.name}</span>
+                        <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                    </Link>
                 </div>
             </div>
         )
@@ -149,7 +152,7 @@ export default class Home extends React.Component {
                                         url={"http://localhost:9090/images"}
                                         optimisticPreviews={true}
                                         multiple={false}
-                                        onLoadEnd={(err, result) =>{
+                                        onLoadEnd={(err, result) => {
                                             if (err)
                                                 console.error(err);
                                             else
@@ -157,7 +160,6 @@ export default class Home extends React.Component {
                                         }}
                                         label="Attach image"
                                     />
-
 
 
                                     <input type="submit" value="Create"/>
