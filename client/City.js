@@ -163,150 +163,86 @@ export default class City extends React.Component {
                         <span className="overlay"></span>
                     </div>
 
-                        <div className="Content_Header">
-                            <div className="discover">
-                                <span className="trait" id="traitG"></span>
-                                <span>DISCOVER</span>
-                                <span className="trait" id="traitD"></span>
-                            </div>
-                            <div className="header_txt">
-                                <span className="hightitle_header"> {this.state.city.name} </span>
-                                <span className="subtitle_header"> {this.state.city.country} </span>
-                            </div>
+                    <div className="Content_Header">
+                        <div className="discover">
+                            <span className="trait" id="traitG"></span>
+                            <span>DISCOVER</span>
+                            <span className="trait" id="traitD"></span>
                         </div>
-                        <div id='section1'>
-                            <div className="entete">
-                                <h1>DESCRIPTION OF {this.state.city.name}</h1>
-                                <img src="images/Guill.png" alt=""/>
-                                <p>{this.state.city.description}</p>
-                                <img src="images/GuillV.png" alt=""/>
-                            </div>
+                        <div className="header_txt">
+                            <span className="hightitle_header"> {this.state.city.name} </span>
+                            <span className="subtitle_header"> {this.state.city.country} </span>
+                        </div>
+                    </div>
+                    <div id='section1'>
+                        <div className="entete">
+                            <h1>DESCRIPTION OF {this.state.city.name}</h1>
+                            <img src="images/Guill.png" alt=""/>
+                            <p>{this.state.city.description}</p>
+                            <img src="images/GuillV.png" alt=""/>
+                        </div>
 
 
-                            <div id="events">
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <h1>EVENTS OF {this.state.city.name}</h1>
-                                {this.state.city.activities.filter(a => a.nature=='event').map((a,i) => <Activity activity={a}/> )}
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <h1>PLACES OF {this.state.city.name}</h1>
-                                {this.state.city.activities.filter(a => a.nature=='place').map((a,i) => <Activity activity={a}/>)}
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <span className="cube"></span>
-                                <h1>MONUMENTS OF {this.state.city.name}</h1>
-                                {this.state.city.activities.filter(a => a.nature=='monument').map((a,i) => <Activity activity={a}/>)}
-                            </div>
+                        <div id="events">
+                            <span className="cube"></span>
+                            <span className="cube"></span>
+                            <span className="cube"></span>
+                            <h1>EVENTS OF {this.state.city.name}</h1>
+                            {this.state.city.activities.filter(a => a.nature=='event').map((a,i) => <Activity activity={a}/> )}
+                            <span className="cube"></span>
+                            <span className="cube"></span>
+                            <span className="cube"></span>
+                            <h1>PLACES OF {this.state.city.name}</h1>
+                            {this.state.city.activities.filter(a => a.nature=='place').map((a,i) => <Activity activity={a}/>)}
+                            {/*<span className="cube"></span>
+                            <span className="cube"></span>
+                            <span className="cube"></span>
+                            <h1>MONUMENTS OF {this.state.city.name}</h1>
+                            {this.state.city.activities.filter(a => a.nature=='monument').map((a,i) => <Activity activity={a}/>)}*/}
+                        </div>
 
-                            <div>
-                                <h2>Insert a new activity</h2>
-                                <form onSubmit={(e) => this.addActivity(e)}>
-                                    <input type="text" value={this.state.aName} onChange={(e) => {this.handleActNameChange(e)}} placeholder="New Activity" /> <br />
-                                    <textarea name="description" value={this.state.disc} onChange={(e) => {this.handleDiscChange(e)}}>Description</textarea ><br/>
-                                    <input type="text" value={this.state.url} onChange={(e) => {this.handleUrlChange(e)}} placeholder="URL" /> <br />
-                                    <input type="text" value={this.state.sDate} onChange={(e) => {this.handleSdateChange(e)}} placeholder="Start date" /> <br />
-                                    <input type="text" value={this.state.eDate} onChange={(e) => {this.handleEdateChange(e)}} placeholder="End Date" /> <br />
-                                    <input type="radio" id="place_radio" name="place" value="place" onChange={(e) => {this.handleENatureChange(e)}}/> Place <br />
-                                    <input type="radio" id="event_radio" name="event" value="event" onChange={(e) => {this.handleENatureChange(e)}}/> Event <br />
-                                    <input type="radio" id="monument_radio" name="monument" value="monument" onChange={(e) => {this.handleENatureChange(e)}}/> Monument <br />
-                                    <input type="submit" value="Create" />
+                        <div className="inner contact">
+
+                            <h2>Insert a new activity</h2>
+
+                            <div className="contact-form">
+
+                                <form id="contact-us" onSubmit={(e) => this.addActivity(e)}>
+
+                                    <div className="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
+
+                                        <input type="text" value={this.state.aName} required="required" className="form_activity" placeholder="Name" onChange={(e) => {this.handleActNameChange(e)}} /> <br />
+                                        <input type="text" value={this.state.url} required="required" className="form_activity" placeholder="Start date (jj.mm.yyyy)" onChange={(e) => {this.handleUrlChange(e)}} /> <br />
+
+                                    </div>
+                                    <div className="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
+                                        <textarea name="description" value={this.state.disc} required="required" className="form_activity" placeholder="End date (jj.mm.yyyy)" onChange={(e) => {this.handleDiscChange(e)}}>Description</textarea ><br/>
+                                    </div>
+
+                                    <div className="relative fullwidth col-xs-12">
+
+                                        <input type="radio" id="event_radio" name="event" value="event" onChange={(e) => {this.handleENatureChange(e)}}/> Event <br />
+                                        <input type="radio" id="place_radio" name="place" value="place" onChange={(e) => {this.handleENatureChange(e)}}/> Place <br />
+                                        {/*<input type="radio" id="monument_radio" name="monument" value="monument" onChange={(e) => {this.handleENatureChange(e)}}/> Monument <br />*/}<br/>
+
+                                        <ImagesUploader label="Upload a Picture for the Activity"
+                                                        url={HTTP_SERVER_PORT_IMAGES} optimisticPreviews = {true} multiple={false}
+                                                        onLoadEnd={(err, pictureFileName) => {
+                                                            if (err) console.error(err);
+                                                            else  this.state.activityPicture = pictureFileName;
+                                                        }}/>
+                                        <input type="submit" value="PUT YOU'R CONTENT" className="form-btn semibold"/>
+                                    </div>
                                 </form>
-                                <ImagesUploader
-                                    label="Upload a Picture for the Activity"
-                                    url={HTTP_SERVER_PORT_IMAGES} optimisticPreviews = {true} multiple={false}
-                                    onLoadEnd={(err, pictureFileName) => {
-                                        if (err) console.error(err);
-                                        else  this.state.activityPicture = pictureFileName;
-                                    }}
-                                />
                             </div>
-
-
-
                         </div>
+
+
+                    </div>
+
 
 
                 </div>
-
-
-
-
-            )
-            else
-                return (
-                    <div>
-
-
-                        <div style={bg_city}>
-                            <span className="overlay"></span>
-                        </div>
-
-                        <div className="Content_Header">
-                            <div className="discover">
-                                <span className="trait" id="traitG"></span>
-                                <span>DISCOVER</span>
-                                <span className="trait" id="traitD"></span>
-                            </div>
-                            <div className="header_txt">
-                                <span className="hightitle_header"> {this.state.city.name} </span>
-                                <span className="subtitle_header"> {this.state.city.country} </span>
-                            </div>
-                        </div>
-                        <div id='section1'>
-                            <div className="entete">
-                                <h1>DESCRIPTION OF {this.state.city.name}</h1>
-                                <img src="images/Guill.png" alt=""/>
-                                <p>{this.state.city.description}</p>
-                                <img src="images/GuillV.png" alt=""/>
-                            </div>
-
-
-
-
-
-
-                            <div className="inner contact">
-
-                                <h2>Insert a new activity</h2>
-
-                                <div className="contact-form">
-
-                                    <form id="contact-us" onSubmit={(e) => this.addActivity(e)}>
-
-                                        <div className="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
-
-                                            <input type="text" value={this.state.aName} required="required" className="form_activity" placeholder="Name" onChange={(e) => {this.handleActNameChange(e)}} /> <br />
-                                            <input type="text" value={this.state.url} required="required" className="form_activity" placeholder="Start date (jj.mm.yyyy)" onChange={(e) => {this.handleUrlChange(e)}} /> <br />
-
-                                        </div>
-                                        <div className="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
-                                            <textarea name="description" value={this.state.disc} required="required" className="form_activity" placeholder="End date (jj.mm.yyyy)" onChange={(e) => {this.handleDiscChange(e)}}>Description</textarea ><br/>
-                                        </div>
-
-                                        <div className="relative fullwidth col-xs-12">
-
-                                            <input type="radio" id="place_radio" name="place" value="place" onChange={(e) => {this.handleENatureChange(e)}}/> Place <br />
-                                            <input type="radio" id="event_radio" name="event" value="event" onChange={(e) => {this.handleENatureChange(e)}}/> Event <br />
-                                            <input type="radio" id="monument_radio" name="monument" value="monument" onChange={(e) => {this.handleENatureChange(e)}}/> Monument <br />
-
-                                            <ImagesUploader label="Upload a Picture for the Activity"
-                                                            url={HTTP_SERVER_PORT_IMAGES} optimisticPreviews = {true} multiple={false}
-                                                            onLoadEnd={(err, pictureFileName) => {
-                                                    if (err) console.error(err);
-                                                    else  this.state.activityPicture = pictureFileName;
-                                                }}/>
-                                            <input type="submit" value="PUT YOU'R CONTENT" className="form-btn semibold"/>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
                 )
         }
     }
