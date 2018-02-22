@@ -14,7 +14,7 @@ ReactDOM.render(
             <nav id="menu">
                 <img src="/images/menu_open.png" alt="menu_open" className="menu_open"/>
                 <img src="/images/menu_close.png" alt="menu_close" className="menu_close"/>
-                <a href="#home"><img className="name" src="/images/Logo_AirnayBlanc.png"/></a>
+                <a href="/"><img className="name" src="/images/Logo_AirnayBlanc.png"/></a>
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#cities">Cities</a></li>
