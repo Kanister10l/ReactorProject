@@ -24,7 +24,7 @@ ReactDOM.render(
                         <div className="container">
                             <a id="modal_trigger" href="#modal">Login / Sign Up</a>
 
-                            <div id="modal" className="popupContainer" style={{display:'none'}}>
+                            <div id="modal" className="popupContainer" style={{display: 'none'}}>
 
                                 <header className="popupHeader">
                                     <span className="header_title"> REGISTER OR LOGIN ? </span>
@@ -36,85 +36,107 @@ ReactDOM.render(
                                     <div className="social_login">
 
                                         <div className="action_btns">
-                                            <div className="one_half"><a href="#" id="login_form" className="btn">Login</a></div>
-                                            <div className="one_half last"><a href="#" id="register_form" className="btn">Sign up</a></div>
+                                            <div className="one_half"><a href="#" id="login_form"
+                                                                         className="btn">Login</a></div>
+                                            <div className="one_half last"><a href="#" id="register_form"
+                                                                              className="btn">Sign up</a></div>
                                         </div>
                                     </div>
 
                                     <div className="user_login">
                                         <form>
-                                            <label>Email Adresse </label><div className="container">
-                                            <a id="modal_trigger" href="#modal">Login / Sign Up</a>
+                                            <label>Email Adresse </label>
+                                            <div className="container">
+                                                <a id="modal_trigger" href="#modal">Login / Sign Up</a>
 
-                                            <div id="modal" className="popupContainer" style={{display:'none'}}>
+                                                <div id="modal" className="popupContainer" style={{display: 'none'}}>
 
-                                                <header className="popupHeader">
-                                                    <span className="header_title"> REGISTER OR LOGIN ? </span>
-                                                    <span className="modal_close"><i className="fa fa-times"/></span>
-                                                </header>
+                                                    <header className="popupHeader">
+                                                        <span className="header_title"> REGISTER OR LOGIN ? </span>
+                                                        <span className="modal_close"><i
+                                                            className="fa fa-times"/></span>
+                                                    </header>
 
-                                                <section className="popupBody">
+                                                    <section className="popupBody">
 
-                                                    <div className="social_login">
+                                                        <div className="social_login">
 
-                                                        <div className="action_btns">
-                                                            <div className="one_half"><a href="#" id="login_form" className="btn">Login</a></div>
-                                                            <div className="one_half last"><a href="#" id="register_form" className="btn">Sign up</a></div>
+                                                            <div className="action_btns">
+                                                                <div className="one_half"><a href="#" id="login_form"
+                                                                                             className="btn">Login</a>
+                                                                </div>
+                                                                <div className="one_half last"><a href="#"
+                                                                                                  id="register_form"
+                                                                                                  className="btn">Sign
+                                                                    up</a></div>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div className="user_login">
-                                                        <form>
-                                                            <label>Email Adresse </label>
-                                                            <input type="text" />
-                                                            <br />
+                                                        <div className="user_login">
+                                                            <form>
+                                                                <label>Email Adresse </label>
+                                                                <input type="text"/>
+                                                                <br/>
 
-                                                            <label>Password</label>
-                                                            <input type="password" />
-                                                            <br />
+                                                                <label>Password</label>
+                                                                <input type="password"/>
+                                                                <br/>
 
-                                                            <div className="action_btns">
-                                                                <div className="one_half"><a href="#" className="btn back_btn"><i className="fa fa-angle-double-left"></i> Back</a></div>
-                                                                <div className="one_half last"><a href="#" className="btn btn_red">Login</a></div>
-                                                            </div>
-                                                        </form>
+                                                                <div className="action_btns">
+                                                                    <div className="one_half"><a href="#"
+                                                                                                 className="btn back_btn"><i
+                                                                        className="fa fa-angle-double-left"></i>
+                                                                        Back</a></div>
+                                                                    <div className="one_half last"><a href="#"
+                                                                                                      className="btn btn_red">Login</a>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
 
-                                                    </div>
+                                                        </div>
 
 
-                                                    <div className="user_register">
-                                                        <form>
-                                                            <label>Full Name</label>
-                                                            <input type="text" />
-                                                            <br />
+                                                        <div className="user_register">
+                                                            <form>
+                                                                <label>Full Name</label>
+                                                                <input type="text"/>
+                                                                <br/>
 
-                                                            <label>Email Address</label>
-                                                            <input type="email" />
-                                                            <br />
+                                                                <label>Email Address</label>
+                                                                <input type="email"/>
+                                                                <br/>
 
-                                                            <label>Password</label>
-                                                            <input type="password" />
-                                                            <br />
+                                                                <label>Password</label>
+                                                                <input type="password"/>
+                                                                <br/>
 
-                                                            <div className="action_btns">
-                                                                <div className="one_half"><a href="#" className="btn back_btn"><i className="fa fa-angle-double-left"></i> Back</a></div>
-                                                                <div className="one_half last"><a href="#" className="btn btn_red">Register</a></div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </section>
+                                                                <div className="action_btns">
+                                                                    <div className="one_half"><a href="#"
+                                                                                                 className="btn back_btn"><i
+                                                                        className="fa fa-angle-double-left"></i>
+                                                                        Back</a></div>
+                                                                    <div className="one_half last"><a href="#"
+                                                                                                      className="btn btn_red">Register</a>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </section>
+                                                </div>
                                             </div>
-                                        </div>
-                                            <input type="text" />
-                                            <br />
+                                            <input type="text"/>
+                                            <br/>
 
                                             <label>Password</label>
-                                            <input type="password" />
-                                            <br />
+                                            <input type="password"/>
+                                            <br/>
 
                                             <div className="action_btns">
-                                                <div className="one_half"><a href="#" className="btn back_btn"><i className="fa fa-angle-double-left"></i> Back</a></div>
-                                                <div className="one_half last"><a href="#" className="btn btn_red">Login</a></div>
+                                                <div className="one_half"><a href="#" className="btn back_btn"><i
+                                                    className="fa fa-angle-double-left"></i> Back</a></div>
+                                                <div className="one_half last"><a href="#"
+                                                                                  className="btn btn_red">Login</a>
+                                                </div>
                                             </div>
                                         </form>
 
@@ -124,20 +146,22 @@ ReactDOM.render(
                                     <div className="user_register">
                                         <form>
                                             <label>Full Name</label>
-                                            <input type="text" />
-                                            <br />
+                                            <input type="text"/>
+                                            <br/>
 
                                             <label>Email Address</label>
-                                            <input type="email" />
-                                            <br />
+                                            <input type="email"/>
+                                            <br/>
 
                                             <label>Password</label>
-                                            <input type="password" />
-                                            <br />
+                                            <input type="password"/>
+                                            <br/>
 
                                             <div className="action_btns">
-                                                <div className="one_half"><a href="#" className="btn back_btn"><i className="fa fa-angle-double-left"></i> Back</a></div>
-                                                <div className="one_half last"><a href="#" className="btn btn_red">Register</a></div>
+                                                <div className="one_half"><a href="#" className="btn back_btn"><i
+                                                    className="fa fa-angle-double-left"></i> Back</a></div>
+                                                <div className="one_half last"><a href="#" className="btn btn_red">Register</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -182,9 +206,21 @@ ReactDOM.render(
             <Route path="/" component={Home}/>
             <Route path="/city/:id" component={City}/>
             <Route path="/activity/:id" component={Activity}/>
-            <Route path="*" component={() => <p>Page Not Found</p>}/>
+            <Route path="*" component={() =>
+                <div className="error404">
+                    <style>
+                        {"header { display: none}"}
+                        {"footer { display: none}"}
+                    </style>
+                    <div className="align404">
+                        <span className="main_title"> There is not enough wind.. </span>
+                        <span className="second_title"> The plane crashed </span>
+                        <span className="error"> ERROR #404 </span>
+                    </div>
+                    <img className="plane" src="../images/plane404.png" alt="plane_crashed"/>
+                </div>
+            }/>
         </Router>
-
 
 
         <footer>
