@@ -110,6 +110,8 @@ export default class City extends React.Component {
                                 {this.state.city.activities.filter(a => a.nature=='place').map((a,i) => <Activity activity={a}/>)}
                             </div>
 
+
+
                         </div>
 
 
