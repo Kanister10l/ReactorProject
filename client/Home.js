@@ -40,7 +40,7 @@ class City extends React.Component {
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {cities: [], name: "", lat: null, long: null, country: ""};
+        this.state = {cities: [], name: "", lat: null, long: null, country: "", description: '', picture: ''};
     }
 
     loadData() {
@@ -52,14 +52,16 @@ export default class Home extends React.Component {
 
     addCity(e) {
         e.preventDefault();
-        const cityName = this.state.name;
+        const name = this.state.name;
         const cityLatitude = this.state.lat;
         const cityLongitude = this.state.long;
         const countryName = this.state.country;
+        const description = this.state.description;
+        const picture = this.state.picture;
 
         fetch('/api/cities/addCity', {
             method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({cityName, cityLatitude, cityLongitude, countryName})
+            body: JSON.stringify({name, cityLatitude, cityLongitude, countryName, description, picture})
         }).then(res => {
             if (res.ok) {
                 res.json().then(id => console.log("City added with id " + id));
@@ -86,6 +88,9 @@ export default class Home extends React.Component {
 
     handleCountryChange(e) {
         this.setState({country: e.target.value});
+    }
+    handleDescriptionChange(e) {
+        this.setState({description: e.target.value});
     }
 
     componentDidMount() {
@@ -148,6 +153,9 @@ export default class Home extends React.Component {
                                     <input type="text" value={this.state.country} onChange={(e) => {
                                         this.handleCountryChange(e)
                                     }} placeholder="Country"/> <br/>
+                                    <textarea name="Description" value={this.state.description} onChange={(e) => {
+                                        this.handleDescriptionChange(e)
+                                    }} rows="6" cols="33" placeholder="Please enter a comment..."/>
                                     <ImagesUploader
                                         url={"http://localhost:9090/images"}
                                         optimisticPreviews={true}
