@@ -8,6 +8,35 @@ import 'react-images-uploader/font.css';
 import {HTTP_SERVER_PORT_IMAGES} from '../server/constants'
 
 class Activity extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {comment: '', props: props}
+    }
+
+    addComment(){
+        const comment = this.state.comment;
+        const activityId = this.state.props.activity.activityId;
+
+        fetch('/api/comments/addComment', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({comment, activityId})
+        }).then(res => {
+            if (res.ok) {
+                res.json().then(id => console.log("Comment added with id " + id));
+            }
+            else
+                res.json().then(err => alert("Failed to add Comment: " + err.message));
+        }).catch(err => alert("Error in sending data to server: " + err.message));
+
+        this.setState({comment: ''});
+    }
+
+    handleCommentChange(e){
+        this.setState({comment: e.target.value});
+    }
+
     render(){
         return(
             <div id='events'>
@@ -16,8 +45,8 @@ class Activity extends React.Component{
                 <p>{this.props.activity.description}</p>
                 <img src= {this.props.activity.picture}/>
                 <h3>Comment</h3>
-                <textarea name="comment_event" rows="1" cols="50" placeholder="Please enter a comment..."></textarea>
-                <Link className="button2" to="#">Send</Link>
+                <textarea name="comment_event" rows="1" cols="50" value={this.state.comment} onChange={(e) => {this.handleCommentChange(e)}} placeholder="Please enter a comment..."></textarea>
+                <Link className="button2" onClick={(e) => this.addComment(e)}>Send</Link>
 
             </div>
         )
